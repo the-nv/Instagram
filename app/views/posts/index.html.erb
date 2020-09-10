@@ -1,1 +1,7 @@
 <h1>Instagram</h1>
+
+<% @posts.each do |post| %>
+    <%= image_tag post.image.url(:medium) %>
+    <%= post.caption %>
+    <%= link_to 'show', post_path(post) %>
+<% end %>
