@@ -7,6 +7,10 @@ class PostsController < ApplicationController
         @posts = Post.all
     end
 
+    def timeline
+        @posts = Post.all
+    end
+
     def show
     end
 
