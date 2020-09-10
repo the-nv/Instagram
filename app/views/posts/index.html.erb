@@ -5,4 +5,24 @@
     <%= image_tag post.image.url(:medium) %>
     <%= post.caption %>
     <%= link_to 'show', post_path(post) %>
+
+    <p>
+        <% if post.comments %>
+            <% post.comments.each do |comment| %>
+                <%= comment.user.user_name %>
+                <%= comment.content%>
+
+                <% if comment.user == current_user %>
+                    <%= link_to 'delete', post_comment_path(post, comment), method: :delete, data: {confirm: "Sure?"} %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </p>
+
+    <p>
+        <%= form_with(model: [ post, post.comments.build ], local: true) do |f| %>
+            <%= f.text_field :content, placeholder: "Add comment" %>
+            <%= f.submit %>
+        <% end %>
+    </p>
 <% end %>
