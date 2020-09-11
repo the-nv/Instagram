@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     end
 
     def timeline
-        @posts = Post.all
+        @posts = Post.where(:user_id => current_user.id)
     end
 
     def show

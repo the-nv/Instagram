@@ -5,7 +5,12 @@
         <li>
             <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
         <li>
+        <% if request.path == '/timeline'%>
+            <%= link_to 'Homepage', root_path %>
+        
+        <% else %>
             <%= link_to 'Timeline', 'timeline' %>
+        <% end %>
     <% else %>
         <li>
             <%= link_to 'Login', new_user_session_path %>
