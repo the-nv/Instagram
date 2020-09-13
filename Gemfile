@@ -56,4 +56,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'paperclip', '~> 4.2'
 gem 'simple_form'
 gem 'devise'
-
+gem 'coffee-rails'
+gem 'rails-ujs'
+gem 'barista'

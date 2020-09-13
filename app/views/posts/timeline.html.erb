@@ -1,42 +1,7 @@
 <h1>TIMELINE</h1>
 
-<% @posts.each do |post| %>
+<div id="my-posts">
+    <%= render @posts %>
+</div>
 
-    <%= image_tag post.image.url(:medium) %>
-    <p>
-        <strong>Caption: </strong>
-        <%= post.caption %>
-    </p>
-
-    <%= link_to 'Show Post', post_path(post) %>
-
-    <br> <br>
-
-    <p>
-        <% if post.comments %>
-            <% post.comments.each do |comment| %>
-                <p>
-                    Comment By:
-                    <%= comment.user.user_name %>
-                </p>
-
-                Comment:
-                <%= comment.content%>
-
-                <% if comment.user == current_user %>
-                    <%= link_to 'delete', post_comment_path(post, comment), method: :delete, data: {confirm: "Sure?"} %>
-                <% end %>
-            <% end %>
-        <% end %>
-    </p>
-
-    <p>
-        <strong>Add Comment:</strong><br>
-        <%= form_with(model: [ post, post.comments.build ], local: true) do |f| %>
-            <%= f.text_field :content, placeholder: "Add comment" %>
-            <%= f.submit %>
-        <% end %>
-    </p>
-
-    <br><br><br>
-<% end %>
+<%= render 'infinite' %>

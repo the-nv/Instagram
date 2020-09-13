@@ -1,0 +1,43 @@
+<script>
+    inc = <%= @per_page %>
+    var fetch_from = 0;
+
+    fetch_from += inc;
+
+    function infinite_scroll() {
+        $.ajax({
+            type: "GET",
+            url: '<%= posts_path %>'+'?fetch_from='+fetch_from,
+
+            success: function(data){
+                current = ""
+
+                let index_begin = data.indexOf("<div id=\"my-posts\">") + "<div id=\"my-posts\">".length;
+
+                if(index_begin == -1)
+                    return;
+
+                data = data.substr(index_begin, data.length)
+
+                let index_end = data.indexOf("</div>")
+                
+                data = data.substr(0, index_end)
+
+                if(data.length < 10)
+                    return;
+
+                current = data;
+                document.getElementById("my-posts").innerHTML += current;
+
+                fetch_from += inc;
+            }
+        });
+    }
+
+    window.addEventListener("scroll", (event) => {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            infinite_scroll();
+        }
+    });
+
+</script>

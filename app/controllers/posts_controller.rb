@@ -4,11 +4,31 @@ class PostsController < ApplicationController
     before_action :owned_post, only: [:edit, :update, :destroy]
 
     def index
-        @posts = Post.all
+        @posts = nil
+
+        @per_page = 2
+        @fetch_from = params.fetch(:fetch_from, 0)
+
+        @posts = Post.offset(@fetch_from).limit(@per_page).order('created_at DESC')
+
+        respond_to do |format|
+            format.html 
+            format.js
+        end
     end
 
     def timeline
-        @posts = Post.where(:user_id => current_user.id)
+        @posts = nil
+        
+        @tper_page = 2
+        @fetch_from = params.fetch(:fetch_from, 0)
+
+        @posts = Post.offset(@fetch_from).limit(@per_page).where(:user_id => current_user.id).order('created_at DESC')
+
+        respond_to do |format|
+            format.html 
+            format.js
+        end
     end
 
     def show
